@@ -13,12 +13,14 @@ ChannelMaskFactory* ChannelMaskFactory::getInstance() {
 ChannelMask* ChannelMaskFactory::orderTheChannelMask(FadeType fadeType, long duration) {
 	ChannelMask* myChannelMask;
 	switch (fadeType) {
-	case  FT_FADEIN:
+	case  FT_FADE:
 		myChannelMask = new FadeChannelMask();
 		break;
-	case  FT_FADEOUT:
-	default:
+	case  FT_WIPE:
 		myChannelMask = new WipeChannelMask();
+		break;
+	default:
+		myChannelMask = new FadeChannelMask();
 		break;
 	}
 	myChannelMask->setDuration(duration);

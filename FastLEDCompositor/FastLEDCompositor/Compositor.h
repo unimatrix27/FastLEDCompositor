@@ -38,7 +38,7 @@ public:
 		TimeBase timeBase = TB_BEATS		);		// fade can mean "amount of beats divided by 24" or "amount of milliseconds"
 	void moveChannel(uint8_t channelId=0, uint16_t newPos = 0);
 	void setBlendType(uint8_t channelId=0, BlendType blendType=BT_SUM);  // change blend type later
-	void setFade(uint8_t channelId=0, FadeType fadeType=FT_FADEIN, TimeBase timebase=TB_BEATS, long time=DEFAULT_FADE_TIME); // set a fade thing later
+	void setFade(uint8_t channelId=0, FadeType fadeType=FT_FADE, TimeBase timebase=TB_BEATS, long time=DEFAULT_FADE_TIME); // set a fade thing later
 	void draw(); // draw all the channels together
 
 };

@@ -13,7 +13,7 @@
 #define DEFAULT_FADE_TIME 96			// default value for Fade time is 4 full beats (4*24)
 
 enum BlendType { BT_SUM, BT_OVERLAY, BT_INVERT };	// some basic blend types (to be added many more)
-enum FadeType { FT_NOFADE, FT_FADEIN, FT_FADEOUT };  // some very basic fade types (to be added many more)
+enum FadeType { FT_NOFADE, FT_FADE, FT_WIPE };  // some very basic fade types (to be added many more)
 enum TimeBase { TB_BEATS, TB_MILLIS };  // timebase for fading (either beats or milliseconds)
 
 #include <FastLED.h>

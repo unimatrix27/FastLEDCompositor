@@ -11,6 +11,9 @@ EffectFactory* EffectFactory::getInstance() {
 Effect* EffectFactory::orderTheEffect(uint16_t effectNumber, LedRange* ledrange) {
 	Effect* myEffect;
 	switch (effectNumber) {
+	case 2:
+		myEffect = new ConfettiEffect();
+		break;
 	case  1:
 		myEffect = new RainbowEffect();
 		break;

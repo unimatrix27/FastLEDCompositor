@@ -17,3 +17,9 @@ public:
 	void draw();
 };
 
+class ConfettiEffect :
+	public Effect
+{
+public:
+	void draw();
+};

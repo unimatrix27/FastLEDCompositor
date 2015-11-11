@@ -21,7 +21,9 @@ protected:
 public:
 	ChannelMask();
 	void setDuration(long duration = 2000);  // channelmasks work in millis
-	virtual uint8_t getVal(uint16_t num_leds, uint16_t lednum) = 0;
+	virtual uint8_t getVal(uint16_t num_leds, uint16_t lednum, boolean direction) = 0;
+	uint8_t getValInt(uint16_t num_leds, uint16_t lednum, boolean direction = 0);
+	boolean isOver();
 
 };
 

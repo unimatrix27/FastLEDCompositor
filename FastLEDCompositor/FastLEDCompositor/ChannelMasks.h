@@ -18,14 +18,14 @@ class FadeChannelMask:public ChannelMask
 {
 
  public:
-	uint8_t getVal(uint16_t num_leds, uint16_t lednum);
+	uint8_t getVal(uint16_t num_leds, uint16_t lednum, boolean direction=0);
 };
 
 class WipeChannelMask :public ChannelMask
 {
 
 public:
-	uint8_t getVal(uint16_t num_leds, uint16_t lednum);
+	uint8_t getVal(uint16_t num_leds, uint16_t lednum, boolean direction=0);
 };
 
 

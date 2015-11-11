@@ -31,6 +31,8 @@ public:
 	void move(uint16_t position = 0);  // move the channel arround to a new offset
 	void draw();					   // Call the effect-draw methode and put everything together
 	LedRange* getLedRange();		   // give access to ledrange (used by compositor object for blending channels into each other)
+	boolean isActive();				   // return 1 if the channel is active. 
+	void toggle();					   // activate or deactivate channel (automatic after transition with ChannelMask
 };
 
 #endif
