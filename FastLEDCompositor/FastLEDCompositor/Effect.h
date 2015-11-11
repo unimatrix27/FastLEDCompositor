@@ -1,3 +1,6 @@
+// Effect.h
+// Abstract Class defining interface for all Effects.
+
 #ifndef _EFFECT_h
 #define _EFFECT_h
 

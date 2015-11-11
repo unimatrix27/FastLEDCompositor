@@ -1,4 +1,7 @@
 // ChannelMask.h
+// Channel Mask can be used to lower the brightness of each pixel based on a mask pattern and on time
+// with this smooth fade ins and fade outs can be realized
+// ChannelMask defines the interface to be implemented by each concrete channel mask and is thus an abstract class.
 
 #ifndef _CHANNELMASK_h
 #define _CHANNELMASK_h
@@ -11,13 +14,13 @@
 
 
 class ChannelMask {
-private: 
+protected:
 	long duration;
 	long endtime;
 	long const starttime = millis();
 public:
 	ChannelMask();
-	void setDuration(long duration = 2000);
+	void setDuration(long duration = 2000);  // channelmasks work in millis
 	virtual uint8_t getVal(uint16_t num_leds, uint16_t lednum) = 0;
 
 };

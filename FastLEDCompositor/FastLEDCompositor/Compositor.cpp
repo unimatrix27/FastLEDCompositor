@@ -47,12 +47,19 @@ void Compositor::setFade(uint8_t channelId, FadeType fadeType, TimeBase timebase
 
 void Compositor::draw() {
 	LedRange* myLedRange;
+	uint16_t myStartPos;
+	CRGB* myLeds;
 	for (uint8_t i= 0; i < NUM_CHANNELS; i++) {
 		if (channels[i] == NULL) continue;
 		channels[i]->draw();
 		myLedRange = channels[i]->getLedRange();
+		myStartPos = myLedRange->getStartPos();
+		myLeds = myLedRange->getLeds();
 		for (int l = 0; l < myLedRange->getNumLeds(); l++) {
-			leds[(l + (myLedRange->getStartPos())) % (NUM_LEDS)] += myLedRange->getLeds()[l];
+			if (channelMasks[i] != NULL) {
+				nscale8x3(myLeds[l].r, (myLeds[l].g), myLeds[l].b, channelMasks[i]->getVal(myLedRange->getNumLeds(), l));
+			}
+			leds[(l + myStartPos) % (NUM_LEDS)] += myLeds[l];
 		}
 	}
 

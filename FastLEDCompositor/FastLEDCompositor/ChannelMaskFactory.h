@@ -1,4 +1,7 @@
-// ChannelFactory.h
+// ChannelMaskFactory.h
+// Factory class for creation ChannelMask Objects
+// Type of object to be determined by FadeType
+// Implemented as Singleton
 
 #ifndef _CHANNELMASKFACTORY_h
 #define _CHANNELMASKFACTORY_h

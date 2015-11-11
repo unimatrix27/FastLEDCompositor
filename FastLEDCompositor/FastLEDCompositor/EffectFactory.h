@@ -1,4 +1,5 @@
 // EffectFactory.h
+// Factory Class to get new effects. Singleton
 
 #ifndef _EFFECTFACTORY_h
 #define _EFFECTFACTORY_h
