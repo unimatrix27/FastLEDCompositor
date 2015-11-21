@@ -9,7 +9,7 @@
 #include "disco.h"
 #include "Note.h"
 
-#define MAX_NOTES 200
+#define MAX_NOTES 20
 
 
 class Noteplayer

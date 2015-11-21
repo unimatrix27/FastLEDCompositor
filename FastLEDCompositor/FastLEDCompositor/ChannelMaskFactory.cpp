@@ -23,7 +23,9 @@ ChannelMask* ChannelMaskFactory::orderTheChannelMask(FadeType fadeType, long dur
 		myChannelMask = new FadeChannelMask();
 		break;
 	}
+	myChannelMask->setStartTime(millis());
 	myChannelMask->setDuration(duration);
+
 	return myChannelMask;
 }
 

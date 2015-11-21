@@ -12,16 +12,19 @@
 
 #include "disco.h"
 #include "LedRange.h"
+#include "ParameterSet.h"
 
 class Effect
 {
 protected:
 	LedRange* canvas;
+	ParameterSet* myParams; 
 public:
 	virtual void draw() = 0;
 	Effect();
-	~Effect();
+	virtual ~Effect() = 0;
 	void setCanvas(LedRange*);
+	void setParameters(ParameterSet* myParams);
 };
 
 

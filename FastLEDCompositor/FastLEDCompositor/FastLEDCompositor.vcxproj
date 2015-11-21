@@ -45,10 +45,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3;C:\Users\sstuecke\Source\Repos\FastLEDCompositor\FastLEDCompositor\FastLEDCompositor;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master\utility;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\teensy\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\jmrka4qp.fh4\Micro Platforms\default\debuggers;C:\Users\sstuecke\Documents\Arduino\libraries;C:\Users\sstuecke\Source\Repos\FastLEDCompositor\FastLEDCompositor\FastLEDCompositor;C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\teensy\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\jmrka4qp.fh4\Micro Platforms\default\debuggers;C:\Users\sstuecke\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3;C:\Users\sstuecke\Source\Repos\FastLEDCompositor\FastLEDCompositor\FastLEDCompositor;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master\utility;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\teensy\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\jmrka4qp.fh4\Micro Platforms\default\debuggers;C:\Users\sstuecke\Documents\Arduino\libraries;C:\Users\sstuecke\Source\Repos\FastLEDCompositor\FastLEDCompositor\FastLEDCompositor;C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3;C:\Users\sstuecke\Documents\Arduino\libraries\FastLED-master;C:\Users\sstuecke\Documents\Arduino\libraries\OctoWS2811;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\jmrka4qp.fh4\Micro Platforms\default\debuggers\VM_DBG;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\teensy\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\jmrka4qp.fh4\Micro Platforms\default\debuggers;C:\Users\sstuecke\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\sstuecke\Source\Repos\FastLEDCompositor\FastLEDCompositor\FastLEDCompositor\__vm\.FastLEDCompositor.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>_VMDEBUG=1;__MK20DX256__;TEENSYDUINO=125;ARDUINO=165;F_CPU=96000000;ARDUINO_ARCH_AVR;USB_MIDI;LAYOUT_US_ENGLISH;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_VMDEBUG=1;__MK20DX256__;TEENSYDUINO=125;ARDUINO=165;F_CPU=96000000;ARDUINO_ARCH_AVR;USB_SERIAL;LAYOUT_US_ENGLISH;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -89,8 +89,10 @@
     <ClInclude Include="EffectFactory.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="LedRange.h" />
+    <ClInclude Include="MIDIPlayer.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="noteplayer.h" />
+    <ClInclude Include="ParameterSet.h" />
     <ClInclude Include="__vm\.FastLEDCompositor.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -99,13 +101,21 @@
     <ClCompile Include="ChannelMaskFactory.cpp" />
     <ClCompile Include="ChannelMasks.cpp" />
     <ClCompile Include="Compositor.cpp" />
+    <ClCompile Include="disco.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectFactory.cpp" />
     <ClCompile Include="Effects.cpp" />
+    <ClCompile Include="MIDIPlayer.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="noteplayer.cpp" />
+    <ClCompile Include="ParameterSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties VM.DebugVariablesWindow.ColumnVisibleVariableHitCount="1" arduino.upload.port="COM8" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

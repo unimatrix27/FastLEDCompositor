@@ -15,14 +15,18 @@
 
 class ChannelMask {
 protected:
-	long duration;
-	long endtime;
-	long const starttime = millis();
+	unsigned long duration;
+	unsigned long endtime;
+	unsigned long starttime;
+	uint8_t startPercent;
 public:
 	ChannelMask();
+	virtual ~ChannelMask() = 0;
 	void setDuration(long duration = 2000);  // channelmasks work in millis
+	void setStartTime(long myTime);
+	uint8_t getValInt(boolean direction = 0);
+	void setPercent(uint8_t percent);
 	virtual uint8_t getVal(uint16_t num_leds, uint16_t lednum, boolean direction) = 0;
-	uint8_t getValInt(uint16_t num_leds, uint16_t lednum, boolean direction = 0);
 	boolean isOver();
 
 };

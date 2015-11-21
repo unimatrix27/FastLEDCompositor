@@ -24,7 +24,6 @@ void Noteplayer::draw()
 			break;
 		}
 	}
-	fill_solid(leds, n_notes, CRGB::Red);
 }
 
 uint8_t Noteplayer::NoteFind(uint8_t tone) {
@@ -47,7 +46,7 @@ bool Noteplayer::NoteOn(uint8_t tone, uint8_t velocity) {
 		notes[i]->press(velocity);
 		return true;
 	}
-	if (n_notes == 10) {
+	if (n_notes == MAX_NOTES) {
 		return false;
 	}
 	else {

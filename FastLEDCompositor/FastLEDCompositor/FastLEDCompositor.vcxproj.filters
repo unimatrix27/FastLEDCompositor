@@ -57,6 +57,12 @@
     <ClInclude Include="noteplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ParameterSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MIDIPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Channel.cpp">
@@ -87,6 +93,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="noteplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MIDIPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="disco.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

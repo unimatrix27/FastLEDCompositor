@@ -21,10 +21,11 @@ class Compositor
 protected:
 	CRGB* leds;										// canvas to draw on
 	uint16_t num_leds;								// helper info to directly know num of leds
-	Channel* channels[NUM_CHANNELS];				// static amount of channels (could be dynamic, but not sure if it makes sense)
+	Channel* channels[NUM_CHANNELS];				// static amount of channel pointers (could be dynamic, but not sure if it makes sense)
 	ChannelMask* channelMasks[NUM_CHANNELS];		// number is limited by memory. 
 	BlendType blendTypes[NUM_CHANNELS];				// for each channel there is also one "slot" for a channel mask and a blend type
 													// blend type defines, how the pixels are added to the canvas, e.g. overwriting, or averaging, etc.
+	ParameterSet* chanParams[NUM_CHANNELS];			// channal parameters are static memory for each channel to be able to prepare params before creating the channel
 public:
 	Compositor(CRGB* leds, uint16_t num_leds);
 	void addChannel(
@@ -38,9 +39,9 @@ public:
 		TimeBase timeBase = TB_BEATS		);		// fade can mean "amount of beats divided by 24" or "amount of milliseconds"
 	void moveChannel(uint8_t channelId=0, uint16_t newPos = 0);
 	void setBlendType(uint8_t channelId=0, BlendType blendType=BT_SUM);  // change blend type later
-	void setFade(uint8_t channelId=0, FadeType fadeType=FT_FADE, TimeBase timebase=TB_BEATS, long time=DEFAULT_FADE_TIME); // set a fade thing later
+	void setFade(uint8_t channelId=0, FadeType fadeType=FT_FADE, TimeBase timebase=TB_BEATS, long time=DEFAULT_FADE_TIME, uint8_t autoInOut = 0); // set a fade thing later
 	void draw(); // draw all the channels together
-
+	ParameterSet* getParams(uint8_t channel);
 };
 
 

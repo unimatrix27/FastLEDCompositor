@@ -10,6 +10,7 @@
 
 #ifndef _VSARDUINO_H_
 #define _VSARDUINO_H_
+#define _VMDEBUG 1
 #define __MK20DX256__
 #define TEENSYDUINO 125
 #define ARDUINO 165
@@ -84,32 +85,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portOutputRegister(P)
 #define portInputRegister(P)
 #define portModeRegister(P)
-#include <..\FastLEDCompositor\FastLEDCompositor.ino>
-#include <..\FastLEDCompositor\Channel.cpp>
-#include <..\FastLEDCompositor\Channel.h>
-#include <..\FastLEDCompositor\ChannelMask.cpp>
-#include <..\FastLEDCompositor\ChannelMask.h>
-#include <..\FastLEDCompositor\ChannelMaskFactory.cpp>
-#include <..\FastLEDCompositor\ChannelMaskFactory.h>
-#include <..\FastLEDCompositor\ChannelMasks.cpp>
-#include <..\FastLEDCompositor\ChannelMasks.h>
-#include <..\FastLEDCompositor\Compositor.cpp>
-#include <..\FastLEDCompositor\Compositor.h>
-#include <..\FastLEDCompositor\Effect.cpp>
-#include <..\FastLEDCompositor\Effect.h>
-#include <..\FastLEDCompositor\EffectFactory.cpp>
-#include <..\FastLEDCompositor\EffectFactory.h>
-#include <..\FastLEDCompositor\Effects.cpp>
-#include <..\FastLEDCompositor\Effects.h>
-#include <..\FastLEDCompositor\LedRange.h>
-#include <..\FastLEDCompositor\MIDIPlayer.cpp>
-#include <..\FastLEDCompositor\MIDIPlayer.h>
-#include <..\FastLEDCompositor\Note.cpp>
-#include <..\FastLEDCompositor\Note.h>
-#include <..\FastLEDCompositor\ParameterSet.cpp>
-#include <..\FastLEDCompositor\ParameterSet.h>
-#include <..\FastLEDCompositor\disco.cpp>
-#include <..\FastLEDCompositor\disco.h>
-#include <..\FastLEDCompositor\noteplayer.cpp>
-#include <..\FastLEDCompositor\noteplayer.h>
+#include <..\DebugTest\DebugTest.ino>
 #endif

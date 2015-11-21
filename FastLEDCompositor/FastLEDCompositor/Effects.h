@@ -23,3 +23,10 @@ class ConfettiEffect :
 public:
 	void draw();
 };
+
+class BaseBeatEffect :
+	public Effect
+{
+public:
+	void draw();
+};

@@ -21,6 +21,7 @@ public:
 	{
 		this->num_leds = num_leds;
 		leds = new struct CRGB[num_leds];
+		fill_solid(leds, num_leds, CRGB::Black);
 		this->startpos = startpos;
 	}
 

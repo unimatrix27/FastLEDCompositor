@@ -8,9 +8,12 @@ EffectFactory* EffectFactory::getInstance() {
 	return instance;
 }
 
-Effect* EffectFactory::orderTheEffect(uint16_t effectNumber, LedRange* ledrange) {
+Effect* EffectFactory::orderTheEffect(uint16_t effectNumber, LedRange* ledrange, ParameterSet* params) {
 	Effect* myEffect;
 	switch (effectNumber) {
+	case 3:
+		myEffect = new BaseBeatEffect();
+		break;
 	case 2:
 		myEffect = new ConfettiEffect();
 		break;
@@ -22,6 +25,7 @@ Effect* EffectFactory::orderTheEffect(uint16_t effectNumber, LedRange* ledrange)
 		break;
 	}
 	myEffect->setCanvas(ledrange);
+	myEffect->setParameters(params);
 	return myEffect;
 }
 

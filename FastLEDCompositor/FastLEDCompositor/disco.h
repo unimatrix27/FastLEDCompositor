@@ -1,7 +1,7 @@
 #pragma once
 #define NUM_LEDS_PER_STRIP 300
 #define NUM_STRIPS 1
-#define NUM_CHANNELS 8		// how much channels a compositor can hold
+#define NUM_CHANNELS 16		// how much channels a compositor can hold
 #define LED_DT 14                                          // Data pin to connect to the strip.
 #define ledPin 13											   // Teensy LED 
 
@@ -12,10 +12,26 @@
 #define BPM 80							// Basic BPM if there is no music giving one
 #define DEFAULT_FADE_TIME 96			// default value for Fade time is 4 full beats (4*24)
 
+#define MIDI_START 250
+#define MIDI_STOP 252
+#define MIDI_CONTINUE 251
+
 enum BlendType { BT_SUM, BT_OVERLAY, BT_INVERT };	// some basic blend types (to be added many more)
 enum FadeType { FT_NOFADE, FT_FADE, FT_WIPE };  // some very basic fade types (to be added many more)
 enum TimeBase { TB_BEATS, TB_MILLIS };  // timebase for fading (either beats or milliseconds)
+enum EffectType {ET_SOLID,ET_RAINBOW,ET_CONFETTI,ET_BASEBEAT};
 
 #include <FastLED.h>
 
+int16_t midiToInt(int8_t byte);
+extern uint16_t g_bpm;
+extern uint8_t g_bpm_cnt;
+extern uint16_t g_bpm_beatnr;
+extern long g_bpm_timebase;
 extern struct CRGB leds[NUM_LEDS];  // to be removed, legacy for note-stuff
+
+void OnNoteOn(byte channel, byte note, byte velocity);
+void OnNoteOff(byte channel, byte note, byte velocity);
+void OnProgramChange(byte channel, byte program);
+void OnControlChange(byte channel, byte control, byte value);
+void RealTimeSystem(byte realtimebyte);

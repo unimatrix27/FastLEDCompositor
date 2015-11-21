@@ -21,7 +21,7 @@ protected:
 	EffectFactory() {}
 public:
 	static EffectFactory* getInstance();
-	Effect* orderTheEffect(uint16_t effectNumber, LedRange* ledrange);
+	Effect* orderTheEffect(uint16_t effectNumber, LedRange* ledrange, ParameterSet* params);
 };
 
 
