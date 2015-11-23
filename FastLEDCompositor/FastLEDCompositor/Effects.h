@@ -1,4 +1,5 @@
-// 
+// Definitions for all effect classes. Each effect just has to implement its specific draw function
+// (should be put in a template)
 
 #pragma once
 #include "Effect.h"

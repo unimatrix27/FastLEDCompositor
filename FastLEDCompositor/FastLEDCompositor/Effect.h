@@ -23,8 +23,8 @@ public:
 	virtual void draw() = 0;
 	Effect();
 	virtual ~Effect() = 0;
-	void setCanvas(LedRange*);
-	void setParameters(ParameterSet* myParams);
+	void setCanvas(LedRange*);						// assign an LED range to the effect (this is where the effect will draw itself onto)
+	void setParameters(ParameterSet* myParams);     // assign direct access to a parameter set.
 };
 
 

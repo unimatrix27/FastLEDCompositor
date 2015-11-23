@@ -1,5 +1,5 @@
-// 
-// 
+// Singleton Channel Mask Factory to create new channel Mask objects.
+// More of those Channel mask Classes should be implemented.
 // 
 
 #include "ChannelMaskFactory.h"

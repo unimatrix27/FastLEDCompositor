@@ -15,6 +15,8 @@
 #include "ChannelMask.h"
 #include "ChannelMasks.h"
 
+// Factory Class to create factory masks of the requested type. Singleton
+
 
 class ChannelMaskFactory
 {

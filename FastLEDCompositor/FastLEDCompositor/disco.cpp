@@ -3,34 +3,17 @@
 #include "Compositor.h"
 extern Compositor myComposition;
 
-#define MIDI_CC_START 40
+#define MIDI_CC_START 40 // we start to interpret MIDI CC commands with value 40.
 
-// Effect-Parameters
-uint8_t hue;
-uint8_t saturation;
-uint8_t brightness;
-uint8_t vitality;
-int8_t speed;
-uint8_t randomness;
-uint8_t hueVariability;
-uint8_t blurryness;
 
-// Channel-Parameters
-uint8_t clonecount;
-uint8_t clonedistance;
-uint8_t mirroraxes;
-int8_t	 channelSpeed;
-TBlendType paletteBlendType;
-
-void OnControlChange(byte channel, byte control, byte value) {
-	static PaletteName lastPaletteName[NUM_CHANNELS] = { PN_RAINBOW };
-	channel = 1;
+void OnControlChange(byte channel, byte control, byte value) {			// called whenever a MIDI CC is received
+	static PaletteName lastPaletteName[NUM_CHANNELS] = { PN_RAINBOW };	// variable to prevent sending setTargetPalette again for values received more than once. 
 	if (channel >= NUM_CHANNELS) {
 		return;
 	}
 	switch (control) {
 	case MIDI_CC_START:
-		myComposition.getParams(channel)->hue = 2 * value;
+		myComposition.getParams(channel)->hue = 2 * value;		// multiply with 2 because MIDI values are 7 bit. 
 		break;
 	case MIDI_CC_START + 1:
 		myComposition.getParams(channel)->saturation = 2 * value;
@@ -108,6 +91,13 @@ void OnControlChange(byte channel, byte control, byte value) {
 	}
 }
 
+
+// Receive MIDI Clock information to create BPM
+// not natively supported in TeensyDuino
+// see blog post at
+// http://little-scale.blogspot.de/2011/08/how-to-deal-with-real-time-midi-beat.html
+// thanks for this great addition!
+
 void RealTimeSystem(byte realtimebyte) {
 	if (realtimebyte == 248) {
 		g_bpm_cnt++; if (g_bpm_cnt == 24) {
@@ -125,22 +115,26 @@ void RealTimeSystem(byte realtimebyte) {
 
 }
 
+// for a new note, activate the channel. currently we do not care which note is played as long as it is above 36
+// For notes below 36 we treat them the same way as MIDI CC
+// this way it is the choice of the user if she wants to use MIDI CC or just Notes.
+// depending on the sequencer software used
+// the Author uses Renoise which perfectly supports MIDI CC in a great way
+// https://www.renoise.com/
+
 void OnNoteOn(byte channel, byte note, byte velocity) {
 	if (channel >= NUM_CHANNELS) {
 		return;
 	}
 	if (note < 36) {
 		OnControlChange(channel, MIDI_CC_START + note, velocity-1);
+		return;
 	}
-	myComposition.addChannel(channel,
-		velocity,
-		myComposition.getParams(channel)->blendType,
-		myComposition.getParams(channel)->fadeType,
-		myComposition.getParams(channel)->numLeds,
-		myComposition.getParams(channel)->startPos,
-		myComposition.getParams(channel)->fadeTime,
-		myComposition.getParams(channel)->fadeTimeBase);
+	myComposition.getParams(channel)->effectType = (EffectType)velocity;
+	myComposition.addChannel(channel);
 }
+
+// note off deactivates or fades out the channel
 void OnNoteOff(byte channel, byte note, byte velocity) {
 	if (channel >= NUM_CHANNELS) {
 		return;
@@ -148,11 +142,22 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
 	if (note < 36) {
 		return;
 	}
-	myComposition.setFade(channel,
-		myComposition.getParams(channel)->fadeType,
-		myComposition.getParams(channel)->fadeTimeBase,
-		myComposition.getParams(channel)->fadeTime, 2);
+	myComposition.setFade(channel, 2);
 }
+
+// we dont do anything for program changes right now. But maybe we should.
 void OnProgramChange(byte channel, byte program) {
 
+}
+
+// helper function to transfer 7 bit values into signed integers (used for parameters which go in 2 directions, e.g. speed.
+int16_t midiToInt(int8_t byte) {
+	int16_t s1;
+	byte = byte << 1;
+	s1 = byte *byte;
+	if (byte < 0) {
+		s1 = -1 * s1;
+	}
+	s1 = s1;
+	return s1;
 }

@@ -23,25 +23,14 @@ protected:
 	uint16_t num_leds;								// helper info to directly know num of leds
 	Channel* channels[NUM_CHANNELS];				// static amount of channel pointers (could be dynamic, but not sure if it makes sense)
 	ChannelMask* channelMasks[NUM_CHANNELS];		// number is limited by memory. 
-	BlendType blendTypes[NUM_CHANNELS];				// for each channel there is also one "slot" for a channel mask and a blend type
-													// blend type defines, how the pixels are added to the canvas, e.g. overwriting, or averaging, etc.
 	ParameterSet* chanParams[NUM_CHANNELS];			// channal parameters are static memory for each channel to be able to prepare params before creating the channel
 public:
-	Compositor(CRGB* leds, uint16_t num_leds);
-	void addChannel(
-		uint8_t channelId =0,						// id of new channel
-		uint8_t effect = 0,							// which effect to use (maybe change to an enum)
-		BlendType blendType = BT_SUM,				// which blend type to use (SUM basically just adds the values and saturates at white)
-		FadeType fadeType = FT_NOFADE,				// if there is any fading (during creation a fade in makes sense)
-		uint16_t num_leds = NUM_LEDS,				// how many leds...
-		uint16_t position = 0,						// where to position the channel
-		long fadeDuration = DEFAULT_FADE_TIME,		// if a fade is taken, how long should it take
-		TimeBase timeBase = TB_BEATS		);		// fade can mean "amount of beats divided by 24" or "amount of milliseconds"
-	void moveChannel(uint8_t channelId=0, uint16_t newPos = 0);
-	void setBlendType(uint8_t channelId=0, BlendType blendType=BT_SUM);  // change blend type later
-	void setFade(uint8_t channelId=0, FadeType fadeType=FT_FADE, TimeBase timebase=TB_BEATS, long time=DEFAULT_FADE_TIME, uint8_t autoInOut = 0); // set a fade thing later
+	Compositor(CRGB* leds, uint16_t num_leds);		// assign target LED pattern and num during construction of object. 
+	void addChannel(uint8_t channelId =0);			// add a new channel (and overwrite the pattern that might already be played on the channel)
+	void moveChannel(uint8_t channelId=0, uint16_t newPos = 0); // deprecated, use chanParams directly instead
+	void setFade(uint8_t channelId=0,uint8_t autoInOut = 0); // fade in or out the channel
 	void draw(); // draw all the channels together
-	ParameterSet* getParams(uint8_t channel);
+	ParameterSet* getParams(uint8_t channel);			// give access to params 
 };
 
 

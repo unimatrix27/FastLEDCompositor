@@ -26,6 +26,8 @@ boolean ChannelMask::isOver() {
 	
 }
 
+// getValInt: direction is 0 for fade in and 1 for fade out. used by all channel masks
+
 uint8_t ChannelMask::getValInt(boolean direction) {
 	long temp;
 	if (millis() - starttime > duration) { return 0; }
@@ -42,6 +44,6 @@ uint8_t ChannelMask::getValInt(boolean direction) {
 	return temp;
 }
 
-void ChannelMask::setPercent(uint8_t percent) {
+void ChannelMask::setPercent(uint8_t percent) {				// individually set a percent of channel mask progression
 	startPercent = percent;
 }

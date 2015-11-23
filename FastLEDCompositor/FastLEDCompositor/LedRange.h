@@ -1,3 +1,6 @@
+// LEDRange class that does not do more than hold a number of CRGB values and its size. 
+
+
 #ifndef _LEDRANGE_h
 #define _LEDRANGE_h
 
@@ -14,15 +17,13 @@ class LedRange
 protected:
 
 	uint16_t num_leds;
-	uint16_t startpos;
 public:
 	CRGB* leds;
-	LedRange(uint16_t num_leds = NUM_LEDS, uint16_t startpos=0)
+	LedRange(uint16_t num_leds = NUM_LEDS)
 	{
 		this->num_leds = num_leds;
 		leds = new struct CRGB[num_leds];
-		fill_solid(leds, num_leds, CRGB::Black);
-		this->startpos = startpos;
+		fill_solid(leds, num_leds, CRGB::Black);   // initialize all pixels with black.
 	}
 
 	~LedRange()
@@ -34,12 +35,6 @@ public:
 	}
 	uint16_t getNumLeds() {
 		return num_leds;
-	}
-	uint16_t getStartPos() {
-		return startpos;
-	}
-	void moveStartPos(uint16_t position) {
-		this->startpos = position;
 	}
 };
 

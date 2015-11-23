@@ -1,19 +1,19 @@
 #include "Channel.h"
 #include "MIDIPlayer.h"
 
-Channel::Channel( ParameterSet* params,uint16_t effect, uint16_t num_leds,uint16_t position)
+Channel::Channel( ParameterSet* params)  // Construct a new channel and initialise some values
 {
-	ledrange = new LedRange(num_leds, position);
 	myParams = params;
-	this->effect = EffectFactory::getInstance()->orderTheEffect(effect,ledrange,myParams);
-	is_active = false;
-	lastMillis = millis();
-	speedBuffer = 0;
+	ledrange = new LedRange(myParams->numLeds);
+	this->effect = EffectFactory::getInstance()->orderTheEffect(myParams->effectType,ledrange,myParams);  // get a new effect object
+	is_active = false;	// a channel is always initialized as not active, but will be set active by the composition object
+	lastMillis = millis();	// timestamp of when the channel was created for parameter processing
+	speedBuffer = 0; // buffers for automatic movement of things (used in processParams)
 	hueBuffer = 0;
 }
 
 
-Channel::~Channel()
+Channel::~Channel()  // make sure there is no mem leak
 {
 	if (this->effect != NULL) {
 		delete effect;
@@ -31,13 +31,13 @@ void Channel::processParams() {
 	long timePassed;
 	timePassed = 256 * (millis() - lastMillis);     // hoping this is faster than calling millis a lot of times.
 	// Channel movement based on Channel Speed
-	speedBuffer += MIDIPlayer::getInstance()->midiToInt(myParams->channelSpeed);
+	speedBuffer += midiToInt(myParams->channelSpeed);			// accumulate speed in an internal buffer and move x pixels depending on how far we got. 
 	if (speedBuffer > timePassed || (-1*speedBuffer)>timePassed) {
 		moveAmount = speedBuffer / timePassed;
 		speedBuffer -= moveAmount*timePassed;
-		move(ledrange->getStartPos() + (moveAmount));
+		move(this->getParams()->startPos + (moveAmount));
 	}
-	hueBuffer += MIDIPlayer::getInstance()->midiToInt(myParams->speed);
+	hueBuffer += midiToInt(myParams->speed);					// same as for channel speed, we increase the hue based on speed (speed moves hue - maybe should be done differently)
 	if (hueBuffer > timePassed || (-1 * hueBuffer)>timePassed) {
 		moveAmount = hueBuffer / timePassed;
 		hueBuffer -= moveAmount*timePassed;
@@ -49,14 +49,14 @@ void Channel::processParams() {
 	//
 
 	// Hue changes based on hue Variability and Vitality
-	hueBuffer += MIDIPlayer::getInstance()->midiToInt(myParams->speed);
+	hueBuffer += midiToInt(myParams->speed);   
 	
 }
 
 ParameterSet* Channel::getParams() {
 	return myParams;
 }
-void Channel::draw() {
+void Channel::draw() {   // each frame, process the parameters first, then draw the effect
 	processParams();
 	effect->draw();
 }
@@ -66,7 +66,7 @@ LedRange* Channel::getLedRange() {
 }
 
 void Channel::move(uint16_t position) {
-	ledrange->moveStartPos(position);
+	this->getParams()->startPos = position;			// set a new static position
 }
 
 boolean Channel::isActive() {
