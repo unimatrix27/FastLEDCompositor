@@ -47,6 +47,7 @@ public:
 	 TimeBase fadeTimeBase;		// shoudl the fading be done in miliseconds or in beats
 	 FadeType fadeType;			// what fading to use (-> channel masks)
 	 long fadeTime;				// how long of short to fade in and out. 0 = no fading
+	 long fadeOutTime;			// fade Out could be different time than fade in
 	 BlendType blendType;		// how is the channel blended onto the already existing pixels. channels are processed starting with 0.
 	 uint16_t numLeds;			// how big is the effect.
 	 uint16_t startPos;			// where is it starting on the target strip

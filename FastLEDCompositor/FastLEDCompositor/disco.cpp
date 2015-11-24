@@ -22,19 +22,19 @@ void OnControlChange(byte channel, byte control, byte value) {			// called whene
 		myComposition.getParams(channel)->brightness = 2 * value;
 		break;
 	case MIDI_CC_START + 3:
-		myComposition.getParams(channel)->vitality = value;
+		myComposition.getParams(channel)->vitality = 2*value;
 		break;
 	case MIDI_CC_START + 4:
 		myComposition.getParams(channel)->speed = value;
 		break;
 	case MIDI_CC_START + 5:
-		myComposition.getParams(channel)->randomness = value;
+		myComposition.getParams(channel)->randomness = 2*value;
 		break;
 	case MIDI_CC_START + 6:
-		myComposition.getParams(channel)->hueVariability = value;
+		myComposition.getParams(channel)->hueVariability =2* value;
 		break;
 	case MIDI_CC_START + 7:
-		myComposition.getParams(channel)->blurryness = value;
+		myComposition.getParams(channel)->blurryness = 2*value;
 		break;
 	case MIDI_CC_START + 8:
 		myComposition.getParams(channel)->clonecount = value;
@@ -87,6 +87,14 @@ void OnControlChange(byte channel, byte control, byte value) {			// called whene
 		break;
 	case MIDI_CC_START + 20:
 		myComposition.getParams(channel)->numLeds = NUM_LEDS * value / 127;
+		break;
+	case MIDI_CC_START + 21:
+		if (myComposition.getParams(channel)->fadeTimeBase == TB_BEATS) {
+			myComposition.getParams(channel)->fadeOutTime = value;
+		}
+		else {
+			myComposition.getParams(channel)->fadeOutTime = 100 * value;
+		}
 		break;
 	}
 }

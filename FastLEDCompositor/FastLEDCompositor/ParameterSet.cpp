@@ -36,7 +36,8 @@ ParameterSet::ParameterSet()
 	mirroraxes = 0;
 	channelSpeed = 0;
 	fadeTimeBase = TB_MILLIS;
-	fadeTime = 1000;
+	fadeTime = 0;
+	fadeOutTime = 0;
 	paletteBlendDuration = 4;
 	fadeType = FT_NOFADE;
 	blendType = BT_OVERLAY;

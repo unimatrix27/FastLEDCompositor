@@ -19,7 +19,7 @@
 enum BlendType { BT_SUM, BT_OVERLAY, BT_INVERT };	// some basic blend types (to be added many more)
 enum FadeType { FT_NOFADE, FT_FADE, FT_WIPE };  // some very basic fade types (to be added many more)
 enum TimeBase { TB_BEATS, TB_MILLIS };  // timebase for fading (either beats or milliseconds)
-enum EffectType {ET_SOLID,ET_RAINBOW,ET_CONFETTI,ET_BASEBEAT}; // all effects (to be added a lot more of course)
+enum EffectType {ET_SOLID,ET_RAINBOW,ET_CONFETTI,ET_BASEBEAT, ET_CYLON, ET_JUGGLE}; // all effects (to be added a lot more of course)
 
 #include <FastLED.h>
 

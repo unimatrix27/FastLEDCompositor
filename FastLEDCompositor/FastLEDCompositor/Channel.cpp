@@ -37,7 +37,7 @@ void Channel::processParams() {
 		speedBuffer -= moveAmount*timePassed;
 		move(this->getParams()->startPos + (moveAmount));
 	}
-	hueBuffer += midiToInt(myParams->speed);					// same as for channel speed, we increase the hue based on speed (speed moves hue - maybe should be done differently)
+	hueBuffer += midiToInt(myParams->hueVariability);					// same as for channel speed, we increase the hue based on speed (speed moves hue - maybe should be done differently)
 	if (hueBuffer > timePassed || (-1 * hueBuffer)>timePassed) {
 		moveAmount = hueBuffer / timePassed;
 		hueBuffer -= moveAmount*timePassed;

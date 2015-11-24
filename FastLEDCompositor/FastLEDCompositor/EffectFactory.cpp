@@ -11,13 +11,19 @@ EffectFactory* EffectFactory::getInstance() {
 Effect* EffectFactory::orderTheEffect(uint16_t effectNumber, LedRange* ledrange, ParameterSet* params) {
 	Effect* myEffect;
 	switch (effectNumber) {
-	case 3:
+	case ET_JUGGLE:
+		myEffect = new JuggleEffect();
+		break;
+	case ET_CYLON:
+		myEffect = new CylonEffect();
+		break;
+	case ET_BASEBEAT:
 		myEffect = new BaseBeatEffect();
 		break;
-	case 2:
+	case ET_CONFETTI:
 		myEffect = new ConfettiEffect();
 		break;
-	case  1:
+	case  ET_RAINBOW:
 		myEffect = new RainbowEffect();
 		break;
 	default:

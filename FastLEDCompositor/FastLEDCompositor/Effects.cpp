@@ -56,3 +56,27 @@ void BaseBeatEffect::draw() {
 		else { val = 0; }
 	}
 }
+
+void CylonEffect::draw() {
+	uint16_t n = canvas->getNumLeds();
+	CRGB* l = canvas->getLeds();
+	uint8_t speed = myParams->speed;
+	uint8_t val = beat8(g_bpm, g_bpm_timebase);
+	fill_solid(l, n, CRGB::Black);
+	if ((g_bpm_beatnr & 1) xor ((myParams->vitality)&(0x01) == 0)) {
+		val = (0xff ^ val);
+	}
+	l[(n*val / 256)] = myParams->getColor(myParams->hue);
+	blur1d(l, n, myParams->blurryness);
+}
+
+void JuggleEffect::draw() {
+	uint16_t n = canvas->getNumLeds();
+	CRGB* l = canvas->getLeds();
+	fadeToBlackBy(l, n, 20);
+	byte dothue = myParams->hue;
+	for (int i = 0; i < 8; i++) {
+		l[beatsin16(g_bpm/8,0, n)] |= myParams->getColor(dothue);
+		dothue += myParams->vitality;
+	}
+}

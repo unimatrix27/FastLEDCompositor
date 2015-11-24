@@ -31,3 +31,17 @@ class BaseBeatEffect :
 public:
 	void draw();
 };
+
+class CylonEffect :
+	public Effect
+{
+public:
+	void draw();
+};
+
+class JuggleEffect :
+	public Effect
+{
+public:
+	void draw();
+}; 
