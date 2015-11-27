@@ -55,6 +55,9 @@ public:
 	 // Palette Parameters
 	 TBlendType paletteBlendType;	// LINEAR or None
 	 long paletteBlendDuration;		// how slow should a palette blend into a new one. 
+
+	 // velocity - transfered with every note played if MIDI is used. 7 bits to be used only by a specific effect class for configuration
+	 uint8_t velocity;
  public:
 	 ParameterSet();
 	 ~ParameterSet();

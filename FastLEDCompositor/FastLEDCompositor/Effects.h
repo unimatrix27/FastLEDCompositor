@@ -28,20 +28,31 @@ public:
 class BaseBeatEffect :
 	public Effect
 {
+protected:
+	uint32_t timebase;
+	uint16_t beat;
+	boolean firstRun;
 public:
+	BaseBeatEffect();
 	void draw();
 };
 
-class CylonEffect :
+class TwoColorsEffect :
 	public Effect
 {
 public:
 	void draw();
 };
 
-class JuggleEffect :
+class SineloinEffect :
 	public Effect
 {
+protected:
+	uint32_t timebase;
+	uint16_t beat;
+	boolean firstRun;
+	uint16_t prevPos;
 public:
+	SineloinEffect();
 	void draw();
-}; 
+};

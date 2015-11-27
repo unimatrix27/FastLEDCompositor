@@ -4,6 +4,7 @@
 extern Compositor myComposition;
 
 #define MIDI_CC_START 40 // we start to interpret MIDI CC commands with value 40.
+#define NOTE_EFFECT_START 36  // Note values starting 36 are interpreted as effect number (26 equals the tone C2)
 
 
 void OnControlChange(byte channel, byte control, byte value) {			// called whenever a MIDI CC is received
@@ -107,12 +108,14 @@ void OnControlChange(byte channel, byte control, byte value) {			// called whene
 // thanks for this great addition!
 
 void RealTimeSystem(byte realtimebyte) {
+	uint32_t now;
 	if (realtimebyte == 248) {
+		now = millis();
 		g_bpm_cnt++; if (g_bpm_cnt == 24) {
 			g_bpm_cnt = 0;
 			g_bpm_beatnr++;
-			g_bpm = 60000 / (millis() - g_bpm_timebase);
-			g_bpm_timebase = millis();
+			g_bpm = 60000/(now - g_bpm_timebase);
+			g_bpm_timebase = now;
 		}
 	}
 	if (realtimebyte == MIDI_START || realtimebyte == MIDI_CONTINUE) {
@@ -134,12 +137,12 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
 	if (channel >= NUM_CHANNELS) {
 		return;
 	}
-	if (note < 36) {
+	if (note < NOTE_EFFECT_START) {
 		OnControlChange(channel, MIDI_CC_START + note, velocity-1);
 		return;
 	}
-	myComposition.getParams(channel)->effectType = (EffectType)velocity;
-	myComposition.addChannel(channel);
+	myComposition.getParams(channel)->effectType = (EffectType) (note- NOTE_EFFECT_START);
+	myComposition.addChannel(channel,velocity);
 }
 
 // note off deactivates or fades out the channel

@@ -17,7 +17,7 @@ Compositor::Compositor(CRGB* leds, uint16_t num_leds) {
 	}
 }
 
-void Compositor::addChannel(uint8_t channelId ){		// add and display a new channel. All parameters for the creation are taken from the parameterset object.
+void Compositor::addChannel(uint8_t channelId,uint8_t velocity ){		// add and display a new channel. All parameters for the creation are taken from the parameterset object.
 	if (channelId >= NUM_CHANNELS) {
 		return;
 	}
@@ -26,6 +26,7 @@ void Compositor::addChannel(uint8_t channelId ){		// add and display a new chann
 		channels[channelId] = NULL;
 	}
 	channels[channelId] = new Channel(chanParams[channelId]);
+	chanParams[channelId]->velocity = velocity;
 	if (chanParams[channelId]->fadeType != FT_NOFADE) {
 		setFade(channelId,1);
 	}
@@ -42,7 +43,7 @@ void Compositor::moveChannel(uint8_t channelId, uint16_t newPos) {  // channel t
 
 void Compositor::setFade(uint8_t channelId,uint8_t autoInOut) {			// start a new fading in or out. 
 	uint8_t oldPercentage = 255;
-	long time = channels[channelId]->getParams()->fadeTime;				// how long should the fading be
+	long time;
 	if (channels[channelId] != NULL) {									// is the channel even there yet?
 		if (autoInOut == 1) {
 			channels[channelId]->setActive(0);							// it is a fade in
@@ -57,6 +58,11 @@ void Compositor::setFade(uint8_t channelId,uint8_t autoInOut) {			// start a new
 			oldPercentage = channelMasks[channelId]->getValInt();		// how far is it already progressed
 			delete channelMasks[channelId];								// delete the old fade
 		}
+		if (channels[channelId]->isActive()) {
+			time = channels[channelId]->getParams()->fadeOutTime;
+		}else{
+			time = channels[channelId]->getParams()->fadeTime;
+		}
 		channelMasks[channelId] = ChannelMaskFactory::getInstance()->orderTheChannelMask(channels[channelId]->getParams()->fadeType, time); // get a new channel mask object
 		channelMasks[channelId]->setPercent(oldPercentage);				// init the new object with the starting time 
 	}
@@ -70,6 +76,7 @@ void Compositor::draw() {
 	CRGB* myLeds;			// buffer for pointer to LEDs to simplify code
 	boolean applyMask = false;	// is there a channel mask to apply
 	fill_solid(leds, NUM_LEDS, CRGB::Black);	// initialize the whole thing with black each frame
+	//fill_solid(leds, g_bpm, CRGB::Gray);		// for testing
 	for (uint8_t i= 0; i < NUM_CHANNELS; i++) {	// go through all channels
 		if (channels[i] == NULL) continue;	// if the channel is not active, continue
 		if (channelMasks[i] != NULL) {		// is there a channel mask active?
@@ -98,16 +105,17 @@ void Compositor::draw() {
 			}
 			for (uint8_t s = 0; s <= channels[i]->getParams()->clonecount; s++) {	// progress through all clones of the channel if there are any
 				uint16_t offset = s*channels[i]->getParams()->clonedistance;		// set an offset based on the clonedistance param
+				CRGB p = myLeds[l];
 				switch (channels[i]->getParams()->blendType) {						// depending on blend type, use different ways to put pixels onto the canvas
 				case BT_SUM:														// BT SU = just add the values
-					if(channels[i]->getParams()->brightness<255) nscale8x3(myLeds[l].r, (myLeds[l].g), myLeds[l].b, dim8_raw(channels[i]->getParams()->brightness));
-					leds[(l + myStartPos + offset) % (NUM_LEDS)] += myLeds[l];
+					if(channels[i]->getParams()->brightness<255) nscale8x3(p.r, p.g, p.b, dim8_raw(channels[i]->getParams()->brightness));
+					leds[(l + myStartPos + offset) % (NUM_LEDS)] += p;
 					break;
 				case BT_OVERLAY:													// BT OVERLAY - use the blend function
-					leds[(l + myStartPos + offset) % (NUM_LEDS)]=blend(leds[(l + myStartPos + offset) % (NUM_LEDS)], myLeds[l], channels[i]->getParams()->brightness);
+					leds[(l + myStartPos + offset) % (NUM_LEDS)]=blend(leds[(l + myStartPos + offset) % (NUM_LEDS)], p, channels[i]->getParams()->brightness);
 					break;
 			default:
-					leds[(l + myStartPos + offset) % (NUM_LEDS)] = myLeds[l];
+					leds[(l + myStartPos + offset) % (NUM_LEDS)] = p;
 					break;
 				}
 			}
@@ -122,3 +130,4 @@ ParameterSet* Compositor::getParams(uint8_t channel) {
 	}
 	return chanParams[channel];
 }
+

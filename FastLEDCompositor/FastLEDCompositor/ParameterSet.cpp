@@ -43,6 +43,7 @@ ParameterSet::ParameterSet()
 	blendType = BT_OVERLAY;
 	numLeds = NUM_LEDS;
 	startPos = 0;
+	velocity = 127;
 
 }
 ParameterSet::~ParameterSet() {

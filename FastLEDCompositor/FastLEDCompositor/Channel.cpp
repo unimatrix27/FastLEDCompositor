@@ -48,8 +48,6 @@ void Channel::processParams() {
 	//
 	//
 
-	// Hue changes based on hue Variability and Vitality
-	hueBuffer += midiToInt(myParams->speed);   
 	
 }
 
