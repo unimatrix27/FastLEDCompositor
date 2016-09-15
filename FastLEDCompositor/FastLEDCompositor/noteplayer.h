@@ -6,7 +6,7 @@
 #else
 #include "WProgram.h"
 #endif
-#include "disco.h"
+#include "deftypes.h"
 #include "Note.h"
 
 #define MAX_NOTES 20

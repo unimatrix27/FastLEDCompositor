@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 
-#include "disco.h"
+#include "deftypes.h"
 
 class NoteClass
 {

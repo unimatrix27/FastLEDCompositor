@@ -10,7 +10,7 @@
 #include "WProgram.h"
 #endif
 
-#include "disco.h"
+#include "deftypes.h"
 
 class LedRange
 {
@@ -19,7 +19,7 @@ protected:
 	uint16_t num_leds;
 public:
 	CRGB* leds;
-	LedRange(uint16_t num_leds = NUM_LEDS)
+	LedRange(uint16_t num_leds)
 	{
 		this->num_leds = num_leds;
 		leds = new struct CRGB[num_leds];

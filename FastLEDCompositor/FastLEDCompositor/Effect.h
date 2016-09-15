@@ -10,21 +10,25 @@
 #include "WProgram.h"
 #endif
 
-#include "disco.h"
+#include "deftypes.h"
 #include "LedRange.h"
 #include "ParameterSet.h"
+class FastLED_Composition;
 
 class Effect
 {
 protected:
 	LedRange* canvas;
-	ParameterSet* myParams; 
+	FastLED_Composition* myComp;
 public:
+	ParameterSet* myParams;
 	virtual void draw() = 0;
 	Effect();
 	virtual ~Effect() = 0;
 	void setCanvas(LedRange*);						// assign an LED range to the effect (this is where the effect will draw itself onto)
 	void setParameters(ParameterSet* myParams);     // assign direct access to a parameter set.
+	void setComp(FastLED_Composition* comp);
+	uint16_t getNumLeds();
 };
 
 

@@ -12,6 +12,7 @@
 	#include "WProgram.h"
 #endif
 
+#include "deftypes.h"
 
 class ChannelMask {
 protected:

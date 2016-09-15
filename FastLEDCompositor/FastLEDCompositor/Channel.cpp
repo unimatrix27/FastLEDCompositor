@@ -1,11 +1,16 @@
-#include "Channel.h"
-#include "MIDIPlayer.h"
 
-Channel::Channel( ParameterSet* params)  // Construct a new channel and initialise some values
+#include "Channel.h"
+#include "FastLED_Composition.h"
+
+
+
+Channel::Channel( ParameterSet* params, FastLED_Composition* comp)  // Construct a new channel and initialise some values
 {
 	myParams = params;
+	myComp = comp;
+	if (myParams->numLeds == 0) { myParams->numLeds = myComp->getNumLeds(); }
 	ledrange = new LedRange(myParams->numLeds);
-	this->effect = EffectFactory::getInstance()->orderTheEffect(myParams->effectType,ledrange,myParams);  // get a new effect object
+	this->effect = EffectFactory::getInstance()->orderTheEffect(myParams->effectType,ledrange,myParams,myComp);  // get a new effect object
 	is_active = false;	// a channel is always initialized as not active, but will be set active by the composition object
 	lastMillis = millis();	// timestamp of when the channel was created for parameter processing
 	speedBuffer = 0; // buffers for automatic movement of things (used in processParams)
@@ -31,13 +36,13 @@ void Channel::processParams() {
 	long timePassed;
 	timePassed = 256 * (millis() - lastMillis);     // hoping this is faster than calling millis a lot of times.
 	// Channel movement based on Channel Speed
-	speedBuffer += midiToInt(myParams->channelSpeed);			// accumulate speed in an internal buffer and move x pixels depending on how far we got. 
+	speedBuffer += myComp->midiToInt(myParams->channelSpeed);			// accumulate speed in an internal buffer and move x pixels depending on how far we got. 
 	if (speedBuffer > timePassed || (-1*speedBuffer)>timePassed) {
 		moveAmount = speedBuffer / timePassed;
 		speedBuffer -= moveAmount*timePassed;
 		move(this->getParams()->startPos + (moveAmount));
 	}
-	hueBuffer += midiToInt(myParams->hueVariability);					// same as for channel speed, we increase the hue based on speed (speed moves hue - maybe should be done differently)
+	hueBuffer += myComp->midiToInt(myParams->hueVariability);					// same as for channel speed, we increase the hue based on speed (speed moves hue - maybe should be done differently)
 	if (hueBuffer > timePassed || (-1 * hueBuffer)>timePassed) {
 		moveAmount = hueBuffer / timePassed;
 		hueBuffer -= moveAmount*timePassed;
@@ -82,4 +87,8 @@ void Channel::toggle() {
 	else {
 		is_active = true;
 	}
+}
+
+Effect* Channel::getEffect() {
+	return this->effect;
 }

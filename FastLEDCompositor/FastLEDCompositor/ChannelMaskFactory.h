@@ -11,7 +11,7 @@
 #else
 	#include "WProgram.h"
 #endif
-#include "disco.h"
+#include "deftypes.h"
 #include "ChannelMask.h"
 #include "ChannelMasks.h"
 

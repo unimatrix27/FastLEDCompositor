@@ -13,3 +13,11 @@ void Effect::setCanvas(LedRange* ledrange) {
 void Effect::setParameters(ParameterSet* myParams) {
 	this->myParams = myParams;
 }
+
+uint16_t Effect::getNumLeds() {
+	return canvas->getNumLeds();
+}
+
+void Effect::setComp(FastLED_Composition* comp) {
+	myComp = comp;
+}

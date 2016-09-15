@@ -11,7 +11,7 @@
 #else
 	#include "WProgram.h"
 #endif
-
+#include "deftypes.h"
 #include "ChannelMask.h"
 
 class FadeChannelMask:public ChannelMask

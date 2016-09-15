@@ -33,9 +33,6 @@
     <ClInclude Include="ChannelMasks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Compositor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="disco.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,7 +57,13 @@
     <ClInclude Include="ParameterSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MIDIPlayer.h">
+    <ClInclude Include="MovingBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastLED_Composition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deftypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,9 +80,6 @@
     <ClCompile Include="ChannelMasks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Compositor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,19 +89,13 @@
     <ClCompile Include="Effects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Note.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="noteplayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ParameterSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MIDIPlayer.cpp">
+    <ClCompile Include="MovingBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="disco.cpp">
+    <ClCompile Include="FastLED_Composition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

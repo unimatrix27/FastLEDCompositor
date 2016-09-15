@@ -9,9 +9,10 @@
 #else
 	#include "WProgram.h"
 #endif
-#include "disco.h"
+#include "deftypes.h"
 #include "Effect.h"
 #include "Effects.h"
+class FastLED_Composition;
 
 
 class EffectFactory {
@@ -21,7 +22,7 @@ protected:
 	EffectFactory() {}
 public:
 	static EffectFactory* getInstance();
-	Effect* orderTheEffect(uint16_t effectNumber, LedRange* ledrange, ParameterSet* params);
+	Effect* orderTheEffect(uint16_t effectNumber, LedRange* ledrange, ParameterSet* params, FastLED_Composition* comp);
 };
 
 
